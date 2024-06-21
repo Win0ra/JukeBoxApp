@@ -14,7 +14,7 @@ struct MusicDetailView: View {
     @EnvironmentObject var library: MusicLibrary
     @EnvironmentObject var user: User
     @State private var selectedPlaylist = "Combat"
-
+    
     var body: some View {
         VStack(alignment: .leading) {
             Text(music.title)
@@ -50,7 +50,7 @@ struct MusicDetailView: View {
         .transition(.slide)
         .animation(.default)
     }
-
+    
     func playMusic(filename: String) {
         if let path = Bundle.main.path(forResource: filename, ofType: nil) {
             let url = URL(fileURLWithPath: path)

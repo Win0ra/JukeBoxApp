@@ -10,6 +10,7 @@ import Foundation
 extension UserDefaults {
     private enum Keys {
         static let selectedPlaylist = "selectedPlaylist"
+        static let currentMusicIndex = "currentMusicIndex"
     }
 
     var selectedPlaylist: [String] {
@@ -18,6 +19,15 @@ extension UserDefaults {
         }
         set {
             set(newValue, forKey: Keys.selectedPlaylist)
+        }
+    }
+    
+    var currentMusicIndex: Int {
+        get {
+            return integer(forKey: Keys.currentMusicIndex)
+        }
+        set {
+            set(newValue, forKey: Keys.currentMusicIndex)
         }
     }
 }

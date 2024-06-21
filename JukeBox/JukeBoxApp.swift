@@ -11,7 +11,7 @@ import SwiftUI
 struct JukeboxWoWApp: App {
     @StateObject private var user = User(name: "Player1")
     @StateObject private var library = MusicLibrary()
-
+    
     var body: some Scene {
         WindowGroup {
             ContentView()

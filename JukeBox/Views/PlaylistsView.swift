@@ -10,20 +10,21 @@ import AVFoundation
 
 struct PlaylistsView: View {
     @EnvironmentObject var user: User
-    @State private var audioPlayer: AVAudioPlayer?
-    @State private var isPlaying = false
-    @State private var currentMusicIndex = 0
-    @State private var currentPlaylist: [Music] = []
-    @State private var audio: AVPlayer? // Utilisation de AVPlayer pour lire les fichiers audio
-
+    @Binding var isPlaying: Bool
+    @Binding var currentMusic: Music?
+    @Binding var audioPlayer: AVAudioPlayer?
+    @Binding var currentPlaylist: [Music]
+    @Binding var currentMusicIndex: Int
+    
     var body: some View {
         List {
             ForEach(user.playlists.keys.sorted(), id: \.self) { playlist in
                 Section(header: Text(playlist)) {
                     ForEach(user.playlists[playlist] ?? []) { music in
-                        NavigationLink(destination: MusicDetailView(music: music)) {
+                        HStack {
                             Text(music.title)
                                 .font(.headline)
+                            Spacer()
                             Text(music.zone)
                                 .font(.subheadline)
                         }
@@ -58,15 +59,19 @@ struct PlaylistsView: View {
         }
         .navigationTitle("Playlists")
         .transition(.slide)
+        .onAppear {
+            loadSelectedPlaylist()
+        }
     }
-
+    
     func playPlaylist(_ playlist: [Music]) {
         guard !playlist.isEmpty else { return }
         currentPlaylist = playlist
         currentMusicIndex = 0
         playCurrentMusic()
+        saveSelectedPlaylist()
     }
-
+    
     func playCurrentMusic() {
         guard currentMusicIndex < currentPlaylist.count else {
             isPlaying = false
@@ -77,11 +82,17 @@ struct PlaylistsView: View {
             do {
                 audioPlayer = try AVAudioPlayer(contentsOf: url)
                 audioPlayer?.delegate = AVDelegate(onFinish: {
-                    self.currentMusicIndex += 1
-                    self.playCurrentMusic()
+                    if self.currentMusicIndex < self.currentPlaylist.count - 1 {
+                        self.currentMusicIndex += 1
+                        self.playCurrentMusic()
+                    } else {
+                        self.stopMusic()
+                    }
                 })
                 audioPlayer?.play()
+                currentMusic = music
                 isPlaying = true
+                saveSelectedPlaylist()
             } catch {
                 print("Erreur de lecture du fichier audio : \(error)")
             }
@@ -89,22 +100,35 @@ struct PlaylistsView: View {
             print("Fichier audio non trouvé : \(music.filename)")
         }
     }
-
+    
     func stopMusic() {
         audioPlayer?.stop()
         isPlaying = false
         currentPlaylist.removeAll()
+        saveSelectedPlaylist()
     }
-}
-
-class AVDelegate: NSObject, AVAudioPlayerDelegate {
-    private let onFinish: () -> Void
-
-    init(onFinish: @escaping () -> Void) {
-        self.onFinish = onFinish
+    
+    func saveSelectedPlaylist() {
+//        let musicFileNames = currentPlaylist.map { $0.filename }
+//        UserDefaults.standard.selectedPlaylist = musicFileNames
+//        UserDefaults.standard.currentMusicIndex = currentMusicIndex
+//        UserDefaults.standard.synchronize()
+        
+        // ---------------------------------------
+        let musicFileName = currentMusic.map { $0.filename }
+        UserDefaults.standard.set(musicFileName, forKey: "selectedPlaylist")
+        UserDefaults.standard.set(currentMusicIndex, forKey: "currentMusicIndex")
+        
     }
-
-    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        onFinish()
+    
+    func loadSelectedPlaylist() {
+        let savedFilenames = UserDefaults.standard.array(forKey: "selectedPlaylist") ?? []
+        currentPlaylist = savedFilenames.compactMap { filename in
+            user.playlists.values.flatMap { $0 }.first { $0.filename == filename }
+        }
+        currentMusicIndex = UserDefaults.standard.integer(forKey: "currentMusicIndex")
+        if !currentPlaylist.isEmpty && currentMusicIndex < currentPlaylist.count {
+            playCurrentMusic()
+        }
     }
 }

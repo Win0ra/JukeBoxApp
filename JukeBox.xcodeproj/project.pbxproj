@@ -17,6 +17,8 @@
 		353F45CF2C21919E00736236 /* Nazjatar.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 353F45CA2C21919E00736236 /* Nazjatar.mp3 */; };
 		353F45D12C21953D00736236 /* MusicPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353F45D02C21953D00736236 /* MusicPlayerView.swift */; };
 		356931592C1D0BE300F71D41 /* Elwynn_Forest.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 356931582C1D0BE300F71D41 /* Elwynn_Forest.mp3 */; };
+		35C0A2BE2C243D3F0080400B /* AVDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C0A2BD2C243D3F0080400B /* AVDelegate.swift */; };
+		35C0A2C02C2462F30080400B /* UserDefaultsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C0A2BF2C2462F30080400B /* UserDefaultsExtension.swift */; };
 		35F6E4032C1C6CB20028D172 /* JukeBoxApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F6E4022C1C6CB20028D172 /* JukeBoxApp.swift */; };
 		35F6E4052C1C6CB20028D172 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F6E4042C1C6CB20028D172 /* ContentView.swift */; };
 		35F6E4072C1C6CB20028D172 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F6E4062C1C6CB20028D172 /* Item.swift */; };
@@ -40,6 +42,8 @@
 		353F45CA2C21919E00736236 /* Nazjatar.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Nazjatar.mp3; sourceTree = SOURCE_ROOT; };
 		353F45D02C21953D00736236 /* MusicPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicPlayerView.swift; sourceTree = "<group>"; };
 		356931582C1D0BE300F71D41 /* Elwynn_Forest.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Elwynn_Forest.mp3; sourceTree = "<group>"; };
+		35C0A2BD2C243D3F0080400B /* AVDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVDelegate.swift; sourceTree = "<group>"; };
+		35C0A2BF2C2462F30080400B /* UserDefaultsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsExtension.swift; sourceTree = "<group>"; };
 		35F6E3FF2C1C6CB20028D172 /* JukeBox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JukeBox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		35F6E4022C1C6CB20028D172 /* JukeBoxApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JukeBoxApp.swift; sourceTree = "<group>"; };
 		35F6E4042C1C6CB20028D172 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -122,8 +126,10 @@
 		35F6E4182C1C7A950028D172 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				35C0A2BF2C2462F30080400B /* UserDefaultsExtension.swift */,
 				35F6E4192C1C7AA80028D172 /* Struct_Music.swift */,
 				35F6E4202C1C8CD30028D172 /* User.swift */,
+				35C0A2BD2C243D3F0080400B /* AVDelegate.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -225,8 +231,10 @@
 				35F6E4212C1C8CD30028D172 /* User.swift in Sources */,
 				35F6E41D2C1C84E40028D172 /* MusicDetailView.swift in Sources */,
 				353F45D12C21953D00736236 /* MusicPlayerView.swift in Sources */,
+				35C0A2BE2C243D3F0080400B /* AVDelegate.swift in Sources */,
 				35F6E41F2C1C85220028D172 /* PlaylistsView.swift in Sources */,
 				35F6E4032C1C6CB20028D172 /* JukeBoxApp.swift in Sources */,
+				35C0A2C02C2462F30080400B /* UserDefaultsExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
